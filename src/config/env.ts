@@ -13,5 +13,5 @@ export const resendConfig = {
 export const emailConfig = {
   domain: env.get('EMAIL_DOMAIN').required().asString(),
   sender: env.get('EMAIL_SENDER').required().asEmailString(),
-  password: env.get('EMAIL_PASSWORD').asString(),
+  port: env.get('EMAIL_PORT').required().asPortNumber(),
 };
