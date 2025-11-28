@@ -7,15 +7,15 @@ datasource db {
 }
 
 model TokenReset {
-  ID_TOKEN   String   @id
+  ID_TOKEN   String   @id @default(uuid())
   TOKEN      String
   EXPIRATION DateTime
   USED       Boolean  @default(false)
   ID_USER    String
-  USERS      USERS    @relation(fields: [ID_USER], references: [ID_USER])
+  Users      Users    @relation(fields: [ID_USER], references: [ID_USER])
 }
 
-model USERS {
+model Users {
   ID_USER    String       @id
   USERNAME   String
   NAME       String
@@ -26,6 +26,8 @@ model USERS {
   DT_UP      DateTime
   DEL_AT     DateTime?
   TokenReset TokenReset[]
+
+  @@map("USERS")
 }
 
 enum UserRole {

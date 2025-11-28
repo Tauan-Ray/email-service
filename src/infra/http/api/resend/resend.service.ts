@@ -22,7 +22,6 @@ export class ResendService {
 
   async getEmailIsExists(email: string): Promise<boolean> {
     const { valid, message } = await this.pingEmail.ping(email);
-    console.log({ valid, message });
 
     if (!valid)
       this.logger.warn(

@@ -5,6 +5,11 @@ export const serverConfig = {
   port: env.get('PORT_EMAIL_SERVICE').default('3005').asPortNumber(),
 };
 
+export const forumServer = {
+  url: env.get('URL_FORUM_SERVER').required().asString(),
+  port: env.get('PORT_FORUM_SERVER').default('3000').asPortNumber(),
+};
+
 export const resendConfig = {
   url: env.get('RESEND_API_URL').required().asUrlString(),
   token: env.get('RESEND_API_KEY').required().asString(),
