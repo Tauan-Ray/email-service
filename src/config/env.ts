@@ -3,11 +3,12 @@ import * as env from 'env-var';
 
 export const serverConfig = {
   port: env.get('PORT_EMAIL_SERVICE').default('3005').asPortNumber(),
+  email_service_key: env.get('EMAIL_SERVICE_KEY').required().asString(),
 };
 
-export const forumServer = {
-  url: env.get('URL_FORUM_SERVER').required().asString(),
-  port: env.get('PORT_FORUM_SERVER').default('3000').asPortNumber(),
+export const forumWeb = {
+  url: env.get('URL_FORUM_WEB').required().asString(),
+  port: env.get('PORT_FORUM_WEB').default('3001').asPortNumber(),
 };
 
 export const resendConfig = {

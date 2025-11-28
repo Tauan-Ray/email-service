@@ -3,7 +3,7 @@ import { ResendService } from '../api/resend/resend.service';
 import { PrismaUsersRepository } from 'src/infra/database/forum/repositories/users.repository';
 import { PrismaTokenResetRepository } from 'src/infra/database/forum/repositories/tokenReset.repository';
 import { generateResetToken } from './helpers/generateResetToken';
-import { forumServer } from 'src/config/env';
+import { forumWeb } from 'src/config/env';
 import crypto from 'crypto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 
@@ -68,7 +68,7 @@ export class EmailService {
 
     await this.tokenReset.create(tokenHash, existingEmail.ID_USER);
 
-    const resetLink = `${forumServer.url}:${forumServer.port}/reset?token=${token}`;
+    const resetLink = `${forumWeb.url}:${forumWeb.port}/reset?token=${token}`;
 
     const deliveredEmail = await this.resendService.sendResetPasswordEmail(
       email,
