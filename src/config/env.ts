@@ -11,8 +11,12 @@ export const forumServer = {
 };
 
 export const resendConfig = {
-  url: env.get('RESEND_API_URL').required().asUrlString(),
   token: env.get('RESEND_API_KEY').required().asString(),
+  emailFrom: env.get('EMAIL_FROM').required().asString(),
+  templateResetPassword: env
+    .get('TEMPLATE_RESET_PASSWORD')
+    .required()
+    .asString(),
 };
 
 export const emailConfig = {

@@ -38,7 +38,9 @@ export class EmailService {
       throw new BadRequestException('Token inválido ou expirado');
     }
 
-    return existingToken;
+    const { TOKEN, ...data } = existingToken;
+
+    return data;
   }
 
   async forgotPasswordToken(email: string) {
@@ -68,9 +70,15 @@ export class EmailService {
 
     const resetLink = `${forumServer.url}:${forumServer.port}/reset?token=${token}`;
 
-    return {
+    const deliveredEmail = await this.resendService.sendResetPasswordEmail(
+      email,
       resetLink,
-    };
+    );
+
+    if (!deliveredEmail)
+      throw new BadRequestException(
+        'Erro ao enviar e-mail para redefinição de senha',
+      );
   }
 
   async updatePassword({ newPassword, token }: UpdatePasswordDto) {

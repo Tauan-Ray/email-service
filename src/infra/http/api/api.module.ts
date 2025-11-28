@@ -1,9 +1,8 @@
-import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { ResendService } from './resend/resend.service';
 
 @Module({
-  imports: [HttpModule],
+  imports: [],
   providers: [ResendService],
   exports: [ResendService],
 })
