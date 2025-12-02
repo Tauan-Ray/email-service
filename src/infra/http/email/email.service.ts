@@ -53,7 +53,10 @@ export class EmailService {
 
     const existingEmail = await this.usersRepository.findByEmail(email);
 
-    if (!existingEmail) return;
+    if (!existingEmail) {
+      this.logger.log(`[EMAIL]  "${email}" não está registrado no sistema`);
+      return;
+    }
 
     const existingToken = await this.tokenReset.getTokenByUserId(
       existingEmail.ID_USER,
