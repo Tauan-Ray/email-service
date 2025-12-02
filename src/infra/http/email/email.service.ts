@@ -68,7 +68,7 @@ export class EmailService {
 
     await this.tokenReset.create(tokenHash, existingEmail.ID_USER);
 
-    const resetLink = `${forumWeb.url}:${forumWeb.port}/reset?token=${token}`;
+    const resetLink = `${forumWeb.url}:${forumWeb.port}/auth/reset/${token}`;
 
     const deliveredEmail = await this.resendService.sendResetPasswordEmail(
       email,
@@ -83,6 +83,11 @@ export class EmailService {
 
   async updatePassword({ newPassword, token }: UpdatePasswordDto) {
     const existingToken = await this.verifyToken(token);
+
+    await this.usersRepository.compareSamePassword(
+      newPassword,
+      existingToken.ID_USER,
+    );
 
     await this.usersRepository.updateUserPassword(
       newPassword,

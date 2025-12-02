@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaForumService } from '../prisma.forum.service';
 import * as bcrypt from 'bcrypt';
 
@@ -25,5 +25,20 @@ export class PrismaUsersRepository {
         PASSWORD: hashedPassword,
       },
     });
+  }
+
+  async compareSamePassword(newPassword: string, ID_USER: string) {
+    const existingUser = await this.prismaService.users.findUnique({
+      where: { ID_USER },
+    });
+
+    const isSamePassword = await bcrypt.compare(
+      newPassword,
+      existingUser.PASSWORD,
+    );
+
+    if (isSamePassword) {
+      throw new BadRequestException('Sua senha não pode ser igual a atual!');
+    }
   }
 }
